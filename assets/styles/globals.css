@@ -104,30 +104,30 @@
       --chart-4: hsl(280 65% 60%);
       --chart-5: hsl(340 75% 55%);
     }
+
+      /* Un-layered styles have the highest priority */
+    body {
+      @apply bg-[var(--background)] text-[var(--foreground)];
+
+      /* Above (Tailwind utility) same as below (Standard CSS) */
+
+      /* background-color: var(--background);
+      
+      .text {
+        color: var(--foreground);
+      } */
+    }
+
+    /* * Apply to all */
+    * {
+      @apply border-[var(--border)];
+
+      /* Above (Tailwind utility) same as below (Standard CSS) */
+
+      /* border-color: var(--border); */
+    }
   }
-   
-  /* Un-layered styles have the highest priority */
-  body {
-    @apply bg-[var(--background)] text-[hsl(var(--foreground))];
-
-    /* Above (Tailwind utility) same as below (Standard CSS) */
-
-    /* background-color: var(--background);
-    
-    .text {
-      color: var(--foreground);
-    } */
-  }
-
-  /* * Apply to all */
-  * {
-    @apply border-[var(--border)];
-
-    /* Above (Tailwind utility) same as below (Standard CSS) */
-
-    /* border-color: var(--border); */
-  }
-  
+     
   /* Uploadthing button text override */
   html.dark .upload-field .text-white {
     @apply text-white;

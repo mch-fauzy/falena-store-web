@@ -25,7 +25,7 @@ const RootLayout = (props: Readonly<{children: React.ReactNode}>) => {
       <body className={`${interFont.className} antialiased`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >

@@ -58,7 +58,11 @@ const ThemeToggle = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         {Object.values(themeModes).map(themeMode => (
-          <DropdownMenuItem key={themeMode} onClick={() => setTheme(themeMode)}>
+          <DropdownMenuItem
+            className="default-hover"
+            key={themeMode}
+            onClick={() => setTheme(themeMode)}
+          >
             {capitalize(themeMode)}
           </DropdownMenuItem>
         ))}

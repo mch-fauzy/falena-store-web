@@ -1,156 +1,172 @@
-  /* 
-    What is hsl(var(--background))?
-    hsl() stands for Hue, Saturation, Lightness.
-    var(--background) pulls the value from :root { --background: ... }.
-  */
+/* 
+  What is hsl(var(--background))?
+  hsl() stands for Hue, Saturation, Lightness.
+  var(--background) pulls the value from :root { --background: ... }.
+*/
 
-  /* 
-    - Lowest to Highest Priority Layer
-        @layer reset, base, theme, components, utilities, user defined;
-    - Unlayered have highest priority
-    - !important will override all layer (Can only be use using standard CSS syntax)
-  */
+/* 
+  - Lowest to Highest Priority Layer
+      @layer reset, base, theme, components, utilities, user defined;
+  - Unlayered have highest priority
+  - !important will override all layer (Can only be use using standard CSS syntax)
+*/
 
-  @import "tailwindcss";
-  
-  /* Utilities layer styles have high priority */
-  @layer utilities {
-    .wrapper {
-      @apply max-w-screen lg:mx-auto p-5 md:px-10 w-full;
-    }
-  
-    .flex-start {
-      @apply flex justify-start items-center;
-    }
+/* 
+  oklch(): Specifies the OKLCH (Lightness, Chroma, Hue) color format.
+  0.2753 (L - Lightness): A value between 0 (black) and 1 (white) that defines how light the color is.
+  0.0364 (C - Chroma): The colorfulness or intensity of the color (0 is grayscale, higher values are more saturated).
+  259.7 (H - Hue angle in degrees): The hue of the color, ranging from 0° (red) to 360°, passing through all colors in the spectrum
+*/
 
-    .flex-center {
-      @apply flex justify-center items-center;
+@import "tailwindcss";
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.129 0.042 264.695);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.129 0.042 264.695);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.129 0.042 264.695);
+  --primary: oklch(0.208 0.042 265.755);
+  --primary-foreground: oklch(0.984 0.003 247.858);
+  --secondary: oklch(0.968 0.007 247.896);
+  --secondary-foreground: oklch(0.208 0.042 265.755);
+  --muted: oklch(0.968 0.007 247.896);
+  --muted-foreground: oklch(0.554 0.046 257.417);
+  --accent: oklch(0.968 0.007 247.896);
+  --accent-foreground: oklch(0.208 0.042 265.755);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.9288 0.0126 255.51);
+  --input: oklch(0.929 0.013 255.508);
+  --ring: oklch(0.704 0.04 256.788);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.984 0.003 247.858);
+  --sidebar-foreground: oklch(0.129 0.042 264.695);
+  --sidebar-primary: oklch(0.208 0.042 265.755);
+  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-accent: oklch(0.968 0.007 247.896);
+  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
+  --sidebar-border: oklch(0.929 0.013 255.508);
+  --sidebar-ring: oklch(0.704 0.04 256.788);
+}
+
+.dark {
+  --background: oklch(0.129 0.042 264.695);
+  --foreground: oklch(0.984 0.003 247.858);
+  --card: oklch(0.208 0.042 265.755);
+  --card-foreground: oklch(0.984 0.003 247.858);
+  --popover: oklch(0.208 0.042 265.755);
+  --popover-foreground: oklch(0.984 0.003 247.858);
+  --primary: oklch(0.929 0.013 255.508);
+  --primary-foreground: oklch(0.208 0.042 265.755);
+  --secondary: oklch(0.279 0.041 260.031);
+  --secondary-foreground: oklch(0.984 0.003 247.858);
+  --muted: oklch(0.279 0.041 260.031);
+  --muted-foreground: oklch(0.704 0.04 256.788);
+  --accent: oklch(0.279 0.041 260.031);
+  --accent-foreground: oklch(0.984 0.003 247.858);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(0.2755 0.037 260.02);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.551 0.027 264.364);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.208 0.042 265.755);
+  --sidebar-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-accent: oklch(0.279 0.041 260.031);
+  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.551 0.027 264.364);
+}    
+
+@theme inline {
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
     }
-  
-    .flex-between {
-      @apply flex justify-between items-center;
-    }
-  
-    .h1-bold {
-      @apply font-bold text-3xl lg:text-4xl;
-    }
-  
-    .h2-bold {
-      @apply font-bold text-2xl lg:text-3xl;
-    }
-  
-    .h3-bold {
-      @apply font-bold text-xl lg:text-2xl;
+    to {
+      height: var(--radix-accordion-content-height);
     }
   }
-  
-  /* components layer styles have medium priority */
-  @layer components {
+
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+}
+
+/* Utilities layer styles have high priority */
+@layer utilities {
+  .wrapper {
+    @apply max-w-screen lg:mx-auto p-5 md:px-10 w-full;
   }
 
-  /* Base layer styles have low priority */
-  @layer base {
-
+  .flex-start {
+    @apply flex justify-start items-center;
   }
 
-  :root {
-    --radius: 0.625rem;
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.129 0.042 264.695);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.129 0.042 264.695);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.129 0.042 264.695);
-    --primary: oklch(0.208 0.042 265.755);
-    --primary-foreground: oklch(0.984 0.003 247.858);
-    --secondary: oklch(0.968 0.007 247.896);
-    --secondary-foreground: oklch(0.208 0.042 265.755);
-    --muted: oklch(0.968 0.007 247.896);
-    --muted-foreground: oklch(0.554 0.046 257.417);
-    --accent: oklch(0.968 0.007 247.896);
-    --accent-foreground: oklch(0.208 0.042 265.755);
-    --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.929 0.013 255.508);
-    --input: oklch(0.929 0.013 255.508);
-    --ring: oklch(0.704 0.04 256.788);
-    --chart-1: oklch(0.646 0.222 41.116);
-    --chart-2: oklch(0.6 0.118 184.704);
-    --chart-3: oklch(0.398 0.07 227.392);
-    --chart-4: oklch(0.828 0.189 84.429);
-    --chart-5: oklch(0.769 0.188 70.08);
-    --sidebar: oklch(0.984 0.003 247.858);
-    --sidebar-foreground: oklch(0.129 0.042 264.695);
-    --sidebar-primary: oklch(0.208 0.042 265.755);
-    --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-    --sidebar-accent: oklch(0.968 0.007 247.896);
-    --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-    --sidebar-border: oklch(0.929 0.013 255.508);
-    --sidebar-ring: oklch(0.704 0.04 256.788);
+  .flex-center {
+    @apply flex justify-center items-center;
   }
-  
-  .dark {
-    --background: oklch(0.129 0.042 264.695);
-    --foreground: oklch(0.984 0.003 247.858);
-    --card: oklch(0.208 0.042 265.755);
-    --card-foreground: oklch(0.984 0.003 247.858);
-    --popover: oklch(0.208 0.042 265.755);
-    --popover-foreground: oklch(0.984 0.003 247.858);
-    --primary: oklch(0.929 0.013 255.508);
-    --primary-foreground: oklch(0.208 0.042 265.755);
-    --secondary: oklch(0.279 0.041 260.031);
-    --secondary-foreground: oklch(0.984 0.003 247.858);
-    --muted: oklch(0.279 0.041 260.031);
-    --muted-foreground: oklch(0.704 0.04 256.788);
-    --accent: oklch(0.279 0.041 260.031);
-    --accent-foreground: oklch(0.984 0.003 247.858);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.551 0.027 264.364);
-    --chart-1: oklch(0.488 0.243 264.376);
-    --chart-2: oklch(0.696 0.17 162.48);
-    --chart-3: oklch(0.769 0.188 70.08);
-    --chart-4: oklch(0.627 0.265 303.9);
-    --chart-5: oklch(0.645 0.246 16.439);
-    --sidebar: oklch(0.208 0.042 265.755);
-    --sidebar-foreground: oklch(0.984 0.003 247.858);
-    --sidebar-primary: oklch(0.488 0.243 264.376);
-    --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-    --sidebar-accent: oklch(0.279 0.041 260.031);
-    --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.551 0.027 264.364);
-  }    
-     
-  /* Un-layered styles have the highest priority */
+
+  .flex-between {
+    @apply flex justify-between items-center;
+  }
+
+  .h1-bold {
+    @apply font-bold text-3xl lg:text-4xl;
+  }
+
+  .h2-bold {
+    @apply font-bold text-2xl lg:text-3xl;
+  }
+
+  .h3-bold {
+    @apply font-bold text-xl lg:text-2xl;
+  }
+
+  .default-hover {
+    @apply hover:bg-gray-100 dark:hover:bg-gray-800
+  }
+}
+
+/* components layer styles have medium priority */
+@layer components {
+}
+
+/* Base layer styles have low priority */
+@layer base {
+  * {
+    @apply border-[var(--border)] outline-[var(--ring)/50];
+  }
+
   body {
     @apply bg-[var(--background)] text-[var(--foreground)];
-
-    /* Above (Tailwind utility) same as below (Standard CSS) */
-
-    /* background-color: var(--background);
-    
-    .text {
-      color: var(--foreground);
-    } */
   }
-
-  /* * Apply to all */
-  * {
-    @apply border-[var(--border)];
-
-    /* Above (Tailwind utility) same as below (Standard CSS) */
-
-    /* border-color: var(--border); */
-  }
-
-  /* Uploadthing button text override */
-  html.dark .upload-field .text-white {
-    @apply text-white;
-    /* color: #ffffff !important; */
-  }
-  
-  .upload-field .text-white {
-    @apply text-black;
-    /* color: #000 !important; */
-  }
+}

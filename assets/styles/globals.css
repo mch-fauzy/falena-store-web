@@ -151,8 +151,13 @@
     @apply font-bold text-xl lg:text-2xl;
   }
 
+  /* Set light mode color, The dark mode dynamically switches the values */
   .default-hover {
-    @apply hover:bg-gray-100 dark:hover:bg-gray-800
+    @apply hover:bg-[var(--foreground)] hover:text-[var(--background)]
+  }
+
+  .highlight-btn {
+    @apply bg-[var(--foreground)] text-[var(--background)]
   }
 }
 
@@ -166,6 +171,7 @@
     @apply border-[var(--border)] outline-[var(--ring)/50];
   }
 
+  /* Set light mode color, The dark mode dynamically switches the values */
   body {
     @apply bg-[var(--background)] text-[var(--foreground)];
   }

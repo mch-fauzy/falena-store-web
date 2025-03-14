@@ -10,8 +10,8 @@ const Header = () => {
   return (
     <header className="w-full border-b">
       <div className="wrapper flex-between">
-        <div className="flex-start">
-          <Link href="/" className="flex-start ml-4">
+        <div>
+          <Link href="/" className="flex-start">
             <Image
               src="/images/logo.svg"
               alt={`${CONFIG.APP.NAME} Logo`}
@@ -37,7 +37,7 @@ const Header = () => {
               Cart
             </Link>
           </Button>
-          <Button asChild>
+          <Button className="highlight-btn ml-2" asChild variant="ghost">
             <Link href="/sign-in">
               <UserIcon />
               Sign In

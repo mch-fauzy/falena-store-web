@@ -14,14 +14,10 @@ const NotFoundPage = () => {
         alt={`${CONFIG.APP.NAME} Logo`}
         priority
       />
-      <div className="p-6 text-center">
-        <h1 className="text-3xl font-bold mb-4">Not Found</h1>
-        <p className="text-ellipsis">Could not find requested page</p>
-        <Button
-          asChild
-          variant="outline"
-          className="mt-4 hover:bg-gray-100 dark:hover:bg-gray-800"
-        >
+      <div className="p-4 text-center">
+        <h1 className="text-3xl font-bold">404</h1>
+        <p className="text-ellipsis">This page could not be found</p>
+        <Button asChild variant="outline" className="mt-4 default-hover">
           <Link href="/">Back to Home</Link>
         </Button>
       </div>

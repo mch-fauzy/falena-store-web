@@ -1,5 +1,5 @@
 {
-  "name": "falena-ecommerce-web",
+  "name": "falena-store-web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -11,13 +11,17 @@
     "compile": "tsc",
     "fix": "gts fix",
     "prepare": "npm run compile",
-    "pretest": "npm run compile",
-    "posttest": "npm run lint"
+    "posttest": "npm run lint",
+    "prismaschemaformat": "prisma format",
+    "postinstall": "prisma generate",
+    "prismamigrate:dev": "prisma migrate dev",
+    "seed": "tsx ./db/seed.ts"
   },
   "engines": {
     "node": ">=20.11.1"
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.6",
     "@radix-ui/react-dropdown-menu": "^2.1.6",
     "@radix-ui/react-slot": "^1.1.2",
     "class-variance-authority": "^0.7.1",
@@ -32,13 +36,16 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@prisma/client": "^6.5.0",
     "@tailwindcss/postcss": "^4",
     "@types/lodash": "^4.17.16",
     "@types/node": "^22.7.5",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "gts": "^6.0.2",
+    "prisma": "^6.5.0",
     "tailwindcss": "^4",
+    "tsx": "^4.19.3",
     "typescript": "^5.6.3"
   }
 }

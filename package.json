@@ -10,10 +10,8 @@
     "clean": "gts clean",
     "compile": "tsc",
     "fix": "gts fix",
-    "prepare": "npm run compile",
-    "posttest": "npm run lint",
-    "prismaschemaformat": "prisma format",
     "postinstall": "prisma generate",
+    "prismaschemaformat": "prisma format",
     "prismamigrate:dev": "prisma migrate dev",
     "seed": "tsx ./db/seed.ts"
   },

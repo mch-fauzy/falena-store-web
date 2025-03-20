@@ -1,6 +1,6 @@
-# Falena E-commerce Web
+# Falena Store Web
 
-An Ecommerce website built with Next.js, TypeScript.
+A clothing store website built with Next.js, TypeScript.
 
 ## Table of Contents
 - [Get Started](#get-started)

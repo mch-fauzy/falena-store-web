@@ -1,5 +1,5 @@
-const formatToIdr = (amount: number) => {
-  return amount.toLocaleString('id-ID');
+const formatToIdr = (amount: number): string => {
+  return new Intl.NumberFormat('id-ID').format(amount);
 };
 
 export {formatToIdr};

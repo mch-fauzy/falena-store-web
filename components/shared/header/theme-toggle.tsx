@@ -56,7 +56,7 @@ const ThemeToggle = () => {
           {getThemeIcon(theme)}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
+      <DropdownMenuContent className="bg-sidebar-accent">
         {Object.values(themeModes).map(themeMode => (
           <DropdownMenuItem
             className="default-hover"

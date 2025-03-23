@@ -9,9 +9,9 @@ import {CONFIG} from '@/configs/config';
 
 const interFont = Inter({subsets: ['latin']});
 
-const metadata: Metadata = {
+export const metadata: Metadata = {
   title: {
-    template: '%s',
+    template: `%s | ${CONFIG.APP.NAME}`,
     default: CONFIG.APP.NAME,
   },
   description: CONFIG.APP.DESCRIPTION,
@@ -36,5 +36,4 @@ const RootLayout = (props: Readonly<{children: React.ReactNode}>) => {
   );
 };
 
-export {metadata};
 export default RootLayout;

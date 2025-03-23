@@ -52,7 +52,7 @@ const ProductImages = (props: ProductImagesProps) => {
           height={1000}
           priority // Ensures the main image loads fast for LCP
           className={cn(
-            'min-h-[300px] object-cover object-center rounded-md pointer-events-none',
+            'min-h-[300px] object-cover object-center rounded-md',
             zoom ? 'scale-200' : 'scale-100',
           )}
           /* `transformOrigin` follows the cursor position */

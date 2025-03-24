@@ -6,7 +6,13 @@ const LoadingPage = () => {
   return (
     /* flex-center defined in /assets/styles/globals.css */
     <div className="flex-center h-screen w-screen">
-      <Image src={loader} height={158} width={158} alt="Loading..." />
+      <Image
+        src={loader}
+        height={158}
+        width={158}
+        alt="Loading..."
+        unoptimized
+      />
     </div>
   );
 };

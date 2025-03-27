@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
@@ -7,29 +8,119 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model FalenaUser {
+  id              String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name            String    @default("NO_NAME") @db.Text
+  email           String    @unique @db.Text
+  password        String?   @db.Text
+  role            String    @default("user") @db.Text
+  address         Json?     @db.Json
+  paymentMethod   String?   @db.Text
+  emailVerifiedAt DateTime? @map("email_verified_at") @db.Timestamptz(3)
+  image           String?   @db.Text
+
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
+  createdBy String?   @map("created_by") @db.Text
+  updatedAt DateTime? @map("updated_at") @db.Timestamptz(3)
+  updatedBy String?   @map("updated_by") @db.Text
+  deletedAt DateTime? @map("deleted_at") @db.Timestamptz(3)
+  deletedBy String?   @map("deleted_by") @db.Text
+
+  /**
+   * One user can have multiple accounts (From gmail, fb, twitter, etc
+   */
+  account FalenaAccount[]
+  session FalenaSession[]
+
+  @@map("falena_user")
+}
+
+model FalenaAccount {
+  userId            String  @map("user_id") @db.Uuid
+  type              String  @db.Text
+  provider          String  @db.Text
+  providerAccountId String  @map("provider_account_id") @db.Text
+  refreshToken      String? @map("refresh_token") @db.Text
+  accessToken       String? @map("access_token") @db.Text
+  expiresAt         Int?    @map("expires_at") @db.Integer
+  tokenType         String? @map("token_type") @db.Text
+  scope             String? @map("scope") @db.Text
+  idToken           String? @map("id_token") @db.Text
+  sessionState      String? @map("session_state") @db.Text
+
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
+  createdBy String?   @map("created_by") @db.Text
+  updatedAt DateTime? @map("updated_at") @db.Timestamptz(3)
+  updatedBy String?   @map("updated_by") @db.Text
+  deletedAt DateTime? @map("deleted_at") @db.Timestamptz(3)
+  deletedBy String?   @map("deleted_by") @db.Text
+
+  user FalenaUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  /**
+   * Defines a multi-field ID (composite ID) on the model
+   */
+  @@id([provider, providerAccountId])
+  @@map("falena_account")
+}
+
+model FalenaSession {
+  sessionToken String   @id @map("session_token")
+  userId       String   @map("user_id") @db.Uuid
+  expires      DateTime @db.Timestamptz(3)
+
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
+  createdBy String?   @map("created_by") @db.Text
+  updatedAt DateTime? @map("updated_at") @db.Timestamptz(3)
+  updatedBy String?   @map("updated_by") @db.Text
+  deletedAt DateTime? @map("deleted_at") @db.Timestamptz(3)
+  deletedBy String?   @map("deleted_by") @db.Text
+
+  user FalenaUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("falena_session")
+}
+
+model FalenaVerificationToken {
+  identifier String   @db.Text
+  token      String   @db.Text
+  expires    DateTime @db.Timestamptz(3)
+
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
+  createdBy String?   @map("created_by") @db.Text
+  updatedAt DateTime? @map("updated_at") @db.Timestamptz(3)
+  updatedBy String?   @map("updated_by") @db.Text
+  deletedAt DateTime? @map("deleted_at") @db.Timestamptz(3)
+  deletedBy String?   @map("deleted_by") @db.Text
+
+  @@id([identifier, token])
+  @@map("falena_verification_token")
+}
+
 model FalenaProduct {
-  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name        String    @db.Text
-  slug        String    @unique @db.Text
-  sku         String    @unique @db.Text
-  category    String    @db.Text
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name        String   @db.Text
+  slug        String   @unique @db.Text
+  sku         String   @unique @db.Text
+  category    String   @db.Text
   images      String[]
-  brand       String    @db.Text
-  description String    @db.Text
-  size        String    @db.Text
-  color       String    @db.Text
-  stock       Int       @db.Integer
-  price       Decimal   @default(0) @db.Decimal(14, 2)
-  rating      Decimal   @default(0) @db.Decimal(3, 2)
-  numReviews  Int       @default(0) @map("num_reviews")
-  isFeatured  Boolean   @default(false) @map("is_featured")
-  banner      String?   @db.Text
-  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
-  createdBy   String?   @map("created_by") @db.Text // map field name from "createdBy" to "created_by" in db
-  updatedAt   DateTime? @map("updated_at") @db.Timestamptz(3)
-  updatedBy   String?   @map("updated_by") @db.Text
-  deletedAt   DateTime? @map("deleted_at") @db.Timestamptz(3)
-  deletedBy   String?   @map("deleted_by") @db.Text
+  brand       String   @db.Text
+  description String   @db.Text
+  size        String   @db.Text
+  color       String   @db.Text
+  stock       Int      @db.Integer
+  price       Decimal  @default(0) @db.Decimal(14, 2)
+  rating      Decimal  @default(0) @db.Decimal(3, 2)
+  numReviews  Int      @default(0) @map("num_reviews")
+  isFeatured  Boolean  @default(false) @map("is_featured")
+  banner      String?  @db.Text
+
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
+  createdBy String?   @map("created_by") @db.Text // map field name from "createdBy" to "created_by" in db
+  updatedAt DateTime? @map("updated_at") @db.Timestamptz(3)
+  updatedBy String?   @map("updated_by") @db.Text
+  deletedAt DateTime? @map("deleted_at") @db.Timestamptz(3)
+  deletedBy String?   @map("deleted_by") @db.Text
 
   @@index([name])
   @@index([price])

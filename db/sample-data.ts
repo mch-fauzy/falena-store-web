@@ -1,4 +1,22 @@
+import {hashSync} from 'bcrypt-ts-edge';
+
 const sampleData = {
+  users: [
+    {
+      name: 'John Doe',
+      email: 'admin@example.com',
+      password: hashSync('123456', 10),
+      role: 'admin',
+      createdBy: 'system',
+    },
+    {
+      name: 'Jane Doe',
+      email: 'user@example.com',
+      password: hashSync('123456', 10),
+      role: 'user',
+      createdBy: 'system',
+    },
+  ],
   products: [
     {
       name: 'Polo Sporting Stretch Shirt',
@@ -19,6 +37,7 @@ const sampleData = {
       size: 'S',
       color: 'LIGHT BLUE',
       banner: 'banner-1.jpg',
+      createdBy: 'system',
     },
     {
       name: 'Brooks Brothers Long Sleeved Shirt',
@@ -39,6 +58,7 @@ const sampleData = {
       size: 'M',
       color: 'BROWN',
       banner: 'banner-2.jpg',
+      createdBy: 'system',
     },
     {
       name: 'Tommy Hilfiger Classic Fit Dress Shirt',
@@ -59,6 +79,7 @@ const sampleData = {
       color: 'LIGHT YELLOW',
       isFeatured: false,
       banner: null,
+      createdBy: 'system',
     },
     {
       name: 'Calvin Klein Slim Fit Stretch Shirt',
@@ -79,6 +100,7 @@ const sampleData = {
       size: 'L',
       color: 'DARK BROWN',
       banner: null,
+      createdBy: 'system',
     },
     {
       name: 'Polo Ralph Lauren Oxford Shirt',
@@ -99,6 +121,7 @@ const sampleData = {
       size: 'L',
       color: 'BLUE',
       banner: null,
+      createdBy: 'system',
     },
     {
       name: 'Polo Classic Pink Hoodie',
@@ -119,6 +142,7 @@ const sampleData = {
       size: 'L',
       color: 'PINK',
       banner: null,
+      createdBy: 'system',
     },
   ],
 };

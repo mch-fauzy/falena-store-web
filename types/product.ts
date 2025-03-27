@@ -21,7 +21,6 @@ const currencySchemaRule = z
 /*
   Schema for inserting products
   price and rating are decimal type in prisma.schema, so the zod schema should be string
-
 */
 const createProductSchema = z.object({
   name: z.string().min(1, 'Name is required'),

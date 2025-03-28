@@ -1,4 +1,4 @@
-import {EllipsisVertical, ShoppingCart, UserIcon} from 'lucide-react';
+import {EllipsisVertical, ShoppingCart} from 'lucide-react';
 import Link from 'next/link';
 
 import {Button} from '../../ui/button';
@@ -11,6 +11,7 @@ import {
   SheetTrigger,
 } from '../../ui/sheet';
 import {CONSTANT} from '@/lib/constant';
+import {UserButton} from './user-button';
 
 const Menu = () => {
   return (
@@ -27,12 +28,7 @@ const Menu = () => {
             Cart
           </Link>
         </Button>
-        <Button className="ml-2" asChild>
-          <Link href={CONSTANT.PATH_ROUTE.SIGN_IN}>
-            <UserIcon />
-            Sign In
-          </Link>
-        </Button>
+        <UserButton />
       </nav>
       {/* Menu for size lower than 768px */}
       <nav className="md:hidden">
@@ -49,12 +45,7 @@ const Menu = () => {
                 Cart
               </Link>
             </Button>
-            <Button asChild>
-              <Link href={CONSTANT.PATH_ROUTE.SIGN_IN}>
-                <UserIcon />
-                Sign In
-              </Link>
-            </Button>
+            <UserButton />
             {/* Put SheetDescription to surpress warning in ui console */}
             <SheetDescription />
           </SheetContent>

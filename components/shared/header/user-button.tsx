@@ -57,16 +57,8 @@ const UserButton = async () => {
               </div>
             </div>
           </DropdownMenuLabel>
-          <DropdownMenuItem asChild>
-            {/* <form action={signOutUser} className="w-full"> */}
-            <Button
-              className="w-full py-2 px-2 justify-start default-hover"
-              variant={'ghost'}
-              onClick={signOutUser}
-            >
-              Sign Out
-            </Button>
-            {/* </form> */}
+          <DropdownMenuItem className="default-hover" onClick={signOutUser}>
+            Sign Out
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

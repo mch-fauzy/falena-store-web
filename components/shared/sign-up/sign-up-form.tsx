@@ -8,21 +8,21 @@ import {useFormStatus} from 'react-dom';
 import {Input} from '@/components/ui/input';
 import {Label} from '@/components/ui/label';
 import {CONSTANT} from '@/lib/constant';
-import {signInWithCredentials} from '@/lib/action/user';
+import {signUpUser} from '@/lib/action/user';
 import {Button} from '@/components/ui/button';
 
-const SignInButton = () => {
+const SignUpButton = () => {
   const {pending} = useFormStatus();
 
   return (
     <Button disabled={pending} className="w-full">
-      {pending ? 'Signing In...' : 'Sign In'}
+      {pending ? 'Submitting...' : 'Sign Up'}
     </Button>
   );
 };
 
-const CredentialsSignInForm = () => {
-  const [data, action] = useActionState(signInWithCredentials, {
+const SignUpForm = () => {
+  const [data, action] = useActionState(signUpUser, {
     success: false,
     message: '',
   });
@@ -42,6 +42,19 @@ const CredentialsSignInForm = () => {
       />
       <div className="space-y-6">
         <div>
+          <Label className="mb-2" htmlFor="name">
+            Name
+          </Label>
+          <Input
+            id="name"
+            name="name"
+            type="text"
+            autoComplete="name"
+            defaultValue={CONSTANT.SIGN_UP.DEFAULT_NAME}
+            required
+          />
+        </div>
+        <div>
           <Label className="mb-2" htmlFor="email">
             Email
           </Label>
@@ -50,7 +63,7 @@ const CredentialsSignInForm = () => {
             name="email"
             type="email"
             autoComplete="email"
-            defaultValue={CONSTANT.SIGN_IN.DEFAULT_EMAIL}
+            defaultValue={CONSTANT.SIGN_UP.DEFAULT_EMAIL}
             required
           />
         </div>
@@ -63,24 +76,37 @@ const CredentialsSignInForm = () => {
             name="password"
             type="password"
             autoComplete="password"
-            defaultValue={CONSTANT.SIGN_IN.DEFAULT_PASSWORD}
+            defaultValue={CONSTANT.SIGN_UP.DEFAULT_PASSWORD}
             required
           />
         </div>
         <div>
-          <SignInButton />
+          <Label className="mb-2" htmlFor="confirmPassword">
+            Confirm Password
+          </Label>
+          <Input
+            id="confirmPassword"
+            name="confirmPassword"
+            type="password"
+            autoComplete="confirmPassword"
+            defaultValue={CONSTANT.SIGN_UP.DEFAULT_CONFIRM_PASSWORD}
+            required
+          />
+        </div>
+        <div>
+          <SignUpButton />
         </div>
         {!data.success && (
           <div className="text-center text-destructive">{data.message}</div>
         )}
         <div className="text-sm text-center text-muted-foreground">
           {/* Below is equal to "Don't have an account? " */}
-          Don&apos;t have an account?{' '}
-          <Link href={CONSTANT.PATH_ROUTE.SIGN_UP}>Sign Up</Link>
+          Already have an account?{' '}
+          <Link href={CONSTANT.PATH_ROUTE.SIGN_IN}>Sign In</Link>
         </div>
       </div>
     </form>
   );
 };
 
-export {CredentialsSignInForm};
+export {SignUpForm};

@@ -1,6 +1,5 @@
 import {z} from 'zod';
 
-import {formatToIdr} from '@/lib/format-currency';
 import {FalenaProduct} from '@prisma/client';
 
 /*
@@ -14,8 +13,8 @@ import {FalenaProduct} from '@prisma/client';
 const currencySchemaRule = z
   .string()
   .refine(
-    value => /^\d+(\.\d{2})?$/.test(formatToIdr(Number(value))),
-    'Price must have exactly two decimal places',
+    value => /^\d+$/.test(value) && Number(value) >= 0,
+    'Price must be a positive and contains only digits',
   );
 
 /*

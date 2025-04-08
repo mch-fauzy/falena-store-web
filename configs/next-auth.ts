@@ -1,11 +1,11 @@
 import NextAuth, {type NextAuthConfig, type NextAuthResult} from 'next-auth';
 import {PrismaAdapter} from '@auth/prisma-adapter';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import {compareSync} from 'bcrypt-ts-edge';
 
 import {prismaClient} from './prisma-client';
 import {CONSTANT} from '@/lib/constant';
 import {getUserByEmail} from '@/lib/fetch/user';
+import {comparePassword} from '@/lib/password';
 
 const authConfig: NextAuthConfig = {
   /* Specify URLs to be used if you want to create custom sign in, sign out and error page */
@@ -37,10 +37,10 @@ const authConfig: NextAuthConfig = {
         });
 
         if (user && user.password) {
-          const isMatch = compareSync(
-            String(credentials.password),
-            user.password,
-          );
+          const isMatch = await comparePassword({
+            password: String(credentials.password),
+            hashedPassword: user.password,
+          });
 
           if (isMatch) {
             return {

@@ -5,8 +5,8 @@ import {isRedirectError} from 'next/dist/client/components/redirect-error';
 import {signIn, signOut} from '@/configs/next-auth';
 import {signInSchema, signUpSchema} from '@/types/user';
 import {CONSTANT} from '../constant';
-import {hashSync} from 'bcrypt-ts-edge';
 import {prismaClient} from '@/configs/prisma-client';
+import {hashPassword} from '../password';
 
 /*
  * When we create the form we're going to use new react 19 hook called useActionState (previously useFormState)
@@ -60,7 +60,7 @@ const signUpUser = async (prevState: unknown, formData: FormData) => {
     const plainPassword = user.password;
 
     /* Create user */
-    const hashedPassword = hashSync(user.password, 10);
+    const hashedPassword = await hashPassword({password: user.password});
     await prismaClient.falenaUser.create({
       data: {
         name: user.name,

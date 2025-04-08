@@ -11,6 +11,7 @@ const CONFIG = {
   DATABASE: {
     URL: process.env.DATABASE_URL,
   },
+  BCRYPT_SALT_ROUNDS: process.env.BCRYPT_SALT_ROUNDS,
 } as const;
 
 export {CONFIG};

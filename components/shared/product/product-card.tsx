@@ -16,7 +16,7 @@ const ProductCard = (props: ProductCardProps) => {
   return (
     <Card className="w-full">
       <CardHeader className="p-0 items-center">
-        <Link href={`${CONSTANT.PATH_ROUTE.PRODUCT}/${data.slug}`}>
+        <Link href={`${CONSTANT.pathRoute.product}/${data.slug}`}>
           <Image
             src={data.images[0]}
             alt={data.name}
@@ -29,7 +29,7 @@ const ProductCard = (props: ProductCardProps) => {
       </CardHeader>
       <CardContent className="flex flex-col h-full p-4 gap-4">
         <div className="text-brand">{data.brand}</div>
-        <Link href={`${CONSTANT.PATH_ROUTE.PRODUCT}/${data.slug}`}>
+        <Link href={`${CONSTANT.pathRoute.product}/${data.slug}`}>
           <h2 className="text-description font-medium">{data.name}</h2>
         </Link>
         {/*  flex-grow acts as a spacer to push the rating & price section to the bottom */}

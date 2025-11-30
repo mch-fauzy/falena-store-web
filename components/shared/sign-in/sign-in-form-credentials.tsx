@@ -7,11 +7,11 @@ import {useSearchParams} from 'next/navigation';
 import {Input} from '@/components/ui/input';
 import {Label} from '@/components/ui/label';
 import {CONSTANT} from '@/lib/constant';
-import {signUpUser} from '@/lib/action/user';
+import {signInWithCredentials} from '@/lib/action/user';
 import {Button} from '@/components/ui/button';
 
-const SignUpForm = () => {
-  const {execute, status, result, isPending} = useAction(signUpUser);
+const SignInFormCredentials = () => {
+  const {execute, status, result, isPending} = useAction(signInWithCredentials);
 
   /* Set callback url */
   const searchParams = useSearchParams();
@@ -24,10 +24,8 @@ const SignUpForm = () => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         const input = Object.fromEntries(formData) as {
-          name: string;
           email: string;
           password: string;
-          confirmPassword: string;
         };
         execute(input);
       }}
@@ -40,19 +38,6 @@ const SignUpForm = () => {
       />
       <div className="space-y-6">
         <div>
-          <Label className="mb-2" htmlFor={CONSTANT.key.name}>
-            Name
-          </Label>
-          <Input
-            id={CONSTANT.key.name}
-            name={CONSTANT.key.name}
-            type="text"
-            autoComplete={CONSTANT.key.name}
-            defaultValue={CONSTANT.signUp.placeholderName}
-            required
-          />
-        </div>
-        <div>
           <Label className="mb-2" htmlFor={CONSTANT.key.email}>
             Email
           </Label>
@@ -61,7 +46,7 @@ const SignUpForm = () => {
             name={CONSTANT.key.email}
             type="email"
             autoComplete={CONSTANT.key.email}
-            defaultValue={CONSTANT.signUp.placeholderEmail}
+            defaultValue={CONSTANT.signIn.placeholderEmail}
             required
           />
         </div>
@@ -74,20 +59,7 @@ const SignUpForm = () => {
             name={CONSTANT.key.password}
             type="password"
             autoComplete={CONSTANT.key.password}
-            defaultValue={CONSTANT.signUp.placeholderPassword}
-            required
-          />
-        </div>
-        <div>
-          <Label className="mb-2" htmlFor={CONSTANT.key.confirmPassword}>
-            Confirm Password
-          </Label>
-          <Input
-            id={CONSTANT.key.confirmPassword}
-            name={CONSTANT.key.confirmPassword}
-            type="password"
-            autoComplete={CONSTANT.key.confirmPassword}
-            defaultValue={CONSTANT.signUp.placeholderConfirmPassword}
+            defaultValue={CONSTANT.signIn.placeholderPassword}
             required
           />
         </div>
@@ -99,11 +71,11 @@ const SignUpForm = () => {
             {status === 'hasNavigated'
               ? 'Redirecting...'
               : isPending
-                ? 'Submitting...'
-                : 'Sign Up'}
+                ? 'Signing In...'
+                : 'Sign In'}
           </Button>
         </div>
-        {/* Server error (Prisma, business logic) */}
+        {/* Server error (Prisma, business logic, authentication) */}
         {result?.serverError && (
           <div className="text-center text-destructive">
             {result.serverError}
@@ -114,7 +86,6 @@ const SignUpForm = () => {
           <div className="space-y-1">
             {Object.entries(result.validationErrors).map(([field, error]) => (
               <div key={field} className="text-sm text-destructive">
-                <strong>{field}: </strong>
                 {Array.isArray(error)
                   ? error.join(', ')
                   : error?._errors?.join(', ') || 'Invalid value'}
@@ -124,12 +95,12 @@ const SignUpForm = () => {
         )}
         <div className="text-sm text-center text-muted-foreground">
           {/* Below is equal to "Don't have an account? " */}
-          Already have an account?{' '}
-          <Link href={CONSTANT.pathRoute.signIn}>Sign In</Link>
+          Don&apos;t have an account?{' '}
+          <Link href={CONSTANT.pathRoute.signUp}>Sign Up</Link>
         </div>
       </div>
     </form>
   );
 };
 
-export {SignUpForm};
+export {SignInFormCredentials};

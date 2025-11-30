@@ -6,7 +6,7 @@ import type {Product} from '@/types/product';
 
 const getProductsLatest = async (): Promise<Product[]> => {
   const products = await prismaClient.falenaProduct.findMany({
-    take: CONSTANT.PRODUCT.DEFAULT_LATEST_PRODUCT_LIMIT,
+    take: CONSTANT.product.defaultLatestProductLimit,
     orderBy: {createdAt: 'desc'},
   });
 

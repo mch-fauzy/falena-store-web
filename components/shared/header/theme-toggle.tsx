@@ -6,15 +6,8 @@
 import {useTheme} from 'next-themes';
 import {SunIcon, MoonIcon, SunMoon} from 'lucide-react';
 import {useState, useEffect} from 'react';
-import {capitalize} from 'lodash';
 
 import {Button} from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-} from '@/components/ui/dropdown-menu';
 
 const themeModes = {
   system: 'system',
@@ -35,7 +28,7 @@ const getThemeIcon = (theme: string | undefined) => {
 
 const ThemeToggle = () => {
   const [isMounted, setIsMounted] = useState(false);
-  const {theme, setTheme} = useTheme();
+  const {theme, setTheme, resolvedTheme} = useTheme();
 
   /*
     To avoid hydration error (missmatch between client and server side), so make sure that the component is mounted in client before it uses the theme or before it changes the theme
@@ -46,28 +39,23 @@ const ThemeToggle = () => {
 
   if (!isMounted) return null;
 
+  const currentTheme = theme === themeModes.system ? resolvedTheme : theme;
+
+  const toggle = () => {
+    const next =
+      currentTheme === themeModes.dark ? themeModes.light : themeModes.dark;
+    setTheme(next);
+  };
+
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          className="focus-visible:ring-0 focus-visible:ring-offset-0"
-          variant="ghost"
-        >
-          {getThemeIcon(theme)}
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="bg-sidebar-accent">
-        {Object.values(themeModes).map(themeMode => (
-          <DropdownMenuItem
-            className="default-hover"
-            key={themeMode}
-            onClick={() => setTheme(themeMode)}
-          >
-            {capitalize(themeMode)}
-          </DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <Button
+      aria-label="theme-toggle"
+      className="focus-visible:ring-0 focus-visible:ring-offset-0"
+      variant="ghost"
+      onClick={toggle}
+    >
+      {getThemeIcon(theme)}
+    </Button>
   );
 };
 

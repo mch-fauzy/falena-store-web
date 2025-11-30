@@ -14,7 +14,7 @@ interface PasswordCompare {
 
 const hashPassword = async ({
   password,
-  saltRounds = Number(CONFIG.BCRYPT_SALT_ROUNDS),
+  saltRounds = Number(CONFIG.bcrypt.saltRounds),
 }: PasswordHash) => {
   const salt = await genSalt(saltRounds);
   const hashedPassword = await hash(password, salt);

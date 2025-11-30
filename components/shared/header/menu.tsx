@@ -23,7 +23,7 @@ const Menu = () => {
         */}
         <ThemeToggle />
         <Button asChild variant="ghost">
-          <Link href={CONSTANT.PATH_ROUTE.CART}>
+          <Link href={CONSTANT.pathRoute.cart}>
             <ShoppingCart />
             Cart
           </Link>
@@ -40,7 +40,7 @@ const Menu = () => {
             <SheetTitle>Menu</SheetTitle>
             <ThemeToggle />
             <Button asChild variant="ghost">
-              <Link href={CONSTANT.PATH_ROUTE.CART}>
+              <Link href={CONSTANT.pathRoute.cart}>
                 <ShoppingCart />
                 Cart
               </Link>

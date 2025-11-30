@@ -1,17 +1,20 @@
 /* Constants for infra and app */
 const CONFIG = {
-  SERVER: {
-    PORT: process.env.SERVER_PORT,
+  server: {
+    port: process.env.SERVER_PORT,
   },
-  APP: {
-    NAME: process.env.APP_NAME || 'Falena',
-    DESCRIPTION: process.env.APP_DESCRIPTION || 'Built with Next.js',
-    URL: process.env.APP_URL || 'http://localhost:3000',
+  app: {
+    name: process.env.APP_NAME || 'Falena',
+    description: process.env.APP_DESCRIPTION || 'Built with Next.js',
+    url: process.env.APP_URL || 'http://localhost:3000',
   },
-  DATABASE: {
-    URL: process.env.DATABASE_URL,
+  database: {
+    url: process.env.DATABASE_URL,
   },
-  BCRYPT_SALT_ROUNDS: process.env.BCRYPT_SALT_ROUNDS,
+  bcrypt: {saltRounds: +(process.env.BCRYPT_SALT_ROUNDS || 10)},
+  jwt: {
+    expireInSeconds: +(process.env.JWT_EXPIRES_IN_SECONDS || 86400),
+  },
 } as const;
 
 export {CONFIG};

@@ -1,18 +1,16 @@
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 model FalenaUser {
   id              String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name            String    @default("NO_NAME") @db.Text
+  name            String    @db.Text
   email           String    @unique @db.Text
-  password        String?   @db.Text
+  password        String    @db.Text
   role            String    @default("user") @db.Text
   address         Json?     @db.Json
   paymentMethod   String?   @db.Text

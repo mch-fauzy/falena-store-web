@@ -6,18 +6,19 @@ import {prismaClient} from './prisma-client';
 import {CONSTANT} from '@/lib/constant';
 import {getUserByEmail} from '@/lib/fetch/user';
 import {comparePassword} from '@/lib/password';
+import {CONFIG} from './config';
 
 const authConfig: NextAuthConfig = {
   /* Specify URLs to be used if you want to create custom sign in, sign out and error page */
   pages: {
-    signIn: CONSTANT.PATH_ROUTE.SIGN_IN,
-    error: CONSTANT.PATH_ROUTE.SIGN_IN,
+    signIn: CONSTANT.pathRoute.signIn,
+    error: CONSTANT.pathRoute.signIn,
   },
 
   /* Choose how you want to save the user session */
   session: {
     strategy: 'jwt',
-    maxAge: CONSTANT.TOKEN_EXPIRATION_TIME,
+    maxAge: CONFIG.jwt.expireInSeconds,
   },
 
   adapter: PrismaAdapter(prismaClient),

@@ -31,18 +31,18 @@ const SignUpPage = async (props: SignUpPageProps) => {
 
   /* If user is logged in and have session, click auth related feature will redirect to callback url (e.g, product detail, cart, etc) or home page */
   const session = await auth();
-  if (session) return redirect(callbackUrl || CONSTANT.PATH_ROUTE.HOME);
+  if (session) return redirect(callbackUrl || CONSTANT.pathRoute.home);
 
   return (
     <div className="w-full max-w-md mx-auto">
       <Card>
         <CardHeader className="space-y-4">
-          <Link href={CONSTANT.PATH_ROUTE.HOME} className="flex-center">
+          <Link href={CONSTANT.pathRoute.home} className="flex-center">
             <Image
               src="/images/logo.svg"
               width={100}
               height={100}
-              alt={`${CONFIG.APP.NAME} Logo`}
+              alt={`${CONFIG.app.name} Logo`}
               priority
             />
           </Link>

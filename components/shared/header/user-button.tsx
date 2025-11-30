@@ -20,7 +20,7 @@ const UserButton = async () => {
   if (!session) {
     return (
       <Button asChild>
-        <Link href={CONSTANT.PATH_ROUTE.SIGN_IN}>
+        <Link href={CONSTANT.pathRoute.signIn}>
           <UserIcon />
           Sign In
         </Link>

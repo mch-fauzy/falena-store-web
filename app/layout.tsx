@@ -11,11 +11,11 @@ const interFont = Inter({subsets: ['latin']});
 
 export const metadata: Metadata = {
   title: {
-    template: `%s | ${CONFIG.APP.NAME}`,
-    default: CONFIG.APP.NAME,
+    template: `%s | ${CONFIG.app.name}`,
+    default: CONFIG.app.name,
   },
-  description: CONFIG.APP.DESCRIPTION,
-  metadataBase: new URL(CONFIG.APP.URL),
+  description: CONFIG.app.description,
+  metadataBase: new URL(CONFIG.app.url),
 };
 
 const RootLayout = (props: Readonly<{children: React.ReactNode}>) => {

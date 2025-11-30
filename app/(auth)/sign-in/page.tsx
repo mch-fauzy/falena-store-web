@@ -12,8 +12,9 @@ import {redirect} from 'next/navigation';
 
 import {CONSTANT} from '@/lib/constant';
 import {CONFIG} from '@/configs/config';
-import {CredentialsSignInForm} from '@/components/shared/sign-in/credentials-sign-in-form';
+
 import {auth} from '@/configs/next-auth';
+import {SignInFormCredentials} from '@/components/shared/sign-in/sign-in-form-credentials';
 
 interface SignInPageProps {
   /* query params */
@@ -31,18 +32,18 @@ const SignInPage = async (props: SignInPageProps) => {
 
   /* If user is logged in and have session, click auth related feature will redirect to callback url (e.g, product detail, cart, etc) or home page */
   const session = await auth();
-  if (session) return redirect(callbackUrl || CONSTANT.PATH_ROUTE.HOME);
+  if (session) return redirect(callbackUrl || CONSTANT.pathRoute.home);
 
   return (
     <div className="w-full max-w-md mx-auto">
       <Card>
         <CardHeader className="space-y-4">
-          <Link href={CONSTANT.PATH_ROUTE.HOME} className="flex-center">
+          <Link href={CONSTANT.pathRoute.home} className="flex-center">
             <Image
               src="/images/logo.svg"
               width={100}
               height={100}
-              alt={`${CONFIG.APP.NAME} Logo`}
+              alt={`${CONFIG.app.name} Logo`}
               priority
             />
           </Link>
@@ -52,7 +53,7 @@ const SignInPage = async (props: SignInPageProps) => {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <CredentialsSignInForm />
+          <SignInFormCredentials />
         </CardContent>
       </Card>
     </div>

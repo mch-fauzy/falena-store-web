@@ -1,4 +1,4 @@
-import {prismaClient} from '../configs/prisma-client';
+import {prismaClient} from '@/configs/prisma-client';
 import {sampleData} from './sample-data';
 
 const seedDatabase = async (): Promise<void> => {

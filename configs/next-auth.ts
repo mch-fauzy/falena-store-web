@@ -29,7 +29,7 @@ const authConfig: NextAuthConfig = {
     CredentialsProvider({
       credentials: {
         email: {type: 'email'},
-        password: {type: 'passowrd'},
+        password: {type: 'password'},
       },
 
       async authorize(credentials) {
@@ -67,12 +67,26 @@ const authConfig: NextAuthConfig = {
       /* Set the user ID from the token subject*/
       session.user.id = token.sub as string;
 
+      /* Set the role from the token */
+      session.user.role = token.role;
+
       /* If there is an update to the user profile, i.e, user update their name so the session will set the user name with the updated name*/
       if (trigger === 'update') {
         session.user.name = user.name;
       }
 
       return session;
+    },
+
+    /**
+     * Assign user role to the token on initial sign-in
+     */
+    async jwt({token, user}) {
+      if (user) {
+        token.role = user.role;
+      }
+
+      return token;
     },
   },
 };

@@ -1,4 +1,3 @@
-import {FalenaUser} from '@prisma/client';
 import {z} from 'zod';
 import {ERROR_MESSAGE} from '@/lib/message';
 
@@ -19,6 +18,4 @@ const signUpSchema = z
     path: ['confirmPassword'],
   });
 
-type User = FalenaUser;
-
-export {signInSchema, signUpSchema, type User};
+export {signInSchema, signUpSchema};

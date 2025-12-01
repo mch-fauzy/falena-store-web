@@ -2,9 +2,9 @@ import {notFound} from 'next/navigation';
 
 import {prismaClient} from '@/configs/prisma-client';
 import {CONSTANT} from '../constant';
-import type {Product} from '@/types/product';
+import type {FalenaProduct} from '@prisma/client';
 
-const getProductsLatest = async (): Promise<Product[]> => {
+const getProductsLatest = async (): Promise<FalenaProduct[]> => {
   const products = await prismaClient.falenaProduct.findMany({
     take: CONSTANT.product.defaultLatestProductLimit,
     orderBy: {createdAt: 'desc'},
@@ -14,8 +14,8 @@ const getProductsLatest = async (): Promise<Product[]> => {
 };
 
 const getProductBySlug = async (
-  props: Pick<Product, 'slug'>,
-): Promise<Product> => {
+  props: Pick<FalenaProduct, 'slug'>,
+): Promise<FalenaProduct> => {
   const {slug} = props;
 
   const product = await prismaClient.falenaProduct.findFirst({

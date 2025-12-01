@@ -1,9 +1,9 @@
 import {prismaClient} from '@/configs/prisma-client';
-import type {User} from '@/types/user';
+import type {FalenaUser} from '@prisma/client';
 
 const getUserByEmail = async (
-  props: Pick<User, 'email'>,
-): Promise<User | null> => {
+  props: Pick<FalenaUser, 'email'>,
+): Promise<FalenaUser | null> => {
   const {email} = props;
 
   const user = await prismaClient.falenaUser.findFirst({

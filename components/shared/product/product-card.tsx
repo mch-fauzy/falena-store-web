@@ -3,11 +3,11 @@ import Image from 'next/image';
 
 import {Card, CardContent, CardHeader} from '@/components/ui/card';
 import {ProductPrice} from './product-price';
-import {Product} from '@/types/product';
+import type {FalenaProduct} from '@prisma/client';
 import {CONSTANT} from '@/lib/constant';
 
 interface ProductCardProps {
-  data: Product;
+  data: FalenaProduct;
 }
 
 const ProductCard = (props: ProductCardProps) => {

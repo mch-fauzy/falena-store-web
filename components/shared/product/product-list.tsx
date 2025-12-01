@@ -1,8 +1,8 @@
-import {Product} from '@/types/product';
+import type {FalenaProduct} from '@prisma/client';
 import {ProductCard} from './product-card';
 
 interface ProductListProps {
-  data: Product[]; // temporary it should be type Product[]
+  data: FalenaProduct[];
   title?: string;
   limit?: number;
 }

@@ -1,42 +1,32 @@
 import {z} from 'zod';
 
-import {FalenaProduct} from '@prisma/client';
-
-/*
-    ^ → Start of the string.
-    \d+ → One or more digits (ensures at least one digit before any decimal point).
-    (\.\d{2})? → An optional (?) group:
-      \. → A literal dot (decimal point).
-      \d{2} → Exactly two digits after the decimal point.
-    $ → End of the string.
-  */
-const currencySchemaRule = z
-  .string()
-  .refine(
-    value => /^\d+$/.test(value) && Number(value) >= 0,
-    'Price must be a positive and contains only digits',
-  );
+import {ERROR_MESSAGE} from '@/lib/message';
+import {REGEX} from '@/lib/regex';
 
 /*
   Schema for inserting products
   price and rating are decimal type in prisma.schema, so the zod schema should be string
 */
 const createProductSchema = z.object({
-  name: z.string().min(1, 'Name is required'),
-  slug: z.string().min(1, 'Slug is required'),
+  name: z.string().min(1, ERROR_MESSAGE.fieldRequiredWithName('Name')),
+  slug: z.string().min(1, ERROR_MESSAGE.fieldRequiredWithName('Slug')),
   sku: z.string(),
-  category: z.string().min(1, 'Category is required'),
-  brand: z.string().min(1, 'Brand is required'),
-  description: z.string().min(1, 'Description is required'),
-  size: z.string().min(1, 'Size is required'),
-  color: z.string().min(1, 'Color is required'),
+  category: z.string().min(1, ERROR_MESSAGE.fieldRequiredWithName('Category')),
+  brand: z.string().min(1, ERROR_MESSAGE.fieldRequiredWithName('Brand')),
+  description: z
+    .string()
+    .min(1, ERROR_MESSAGE.fieldRequiredWithName('Description')),
+  size: z.string().min(1, ERROR_MESSAGE.fieldRequiredWithName('Size')),
+  color: z.string().min(1, ERROR_MESSAGE.fieldRequiredWithName('Color')),
   stock: z.number(),
-  price: currencySchemaRule,
-  images: z.array(z.string()).min(1, 'Product must have at least one image'),
+  price: z
+    .string()
+    .regex(REGEX.digitsOnly, ERROR_MESSAGE.fieldMustBePositive('Price')),
+  images: z
+    .array(z.string())
+    .min(1, ERROR_MESSAGE.fieldArrayMinLength('Product images', 1)),
   isFeatured: z.boolean(),
   banner: z.string().nullable(),
 });
 
-type Product = FalenaProduct;
-
-export {createProductSchema, type Product};
+export {createProductSchema};
